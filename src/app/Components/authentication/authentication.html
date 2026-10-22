@@ -1,0 +1,433 @@
+<div class="login-page">
+
+  <div class="login-container">
+
+```
+<!-- ========================================
+     LEFT BRANDING PANEL
+========================================= -->
+
+<div class="branding-panel">
+
+  <div class="brand-content">
+
+    <div class="brand-logo">
+      <span class="material-icons">
+        account_balance
+      </span>
+    </div>
+
+
+    <h1>ERP Plus</h1>
+
+
+    <p>
+      Securely manage your Purchase, Sales, Inventory
+      and Financial operations from one centralized platform.
+    </p>
+
+
+    <div class="feature-list">
+
+      <div class="feature-item">
+
+        <span class="material-icons">
+          verified_user
+        </span>
+
+        <span>
+          Secure Authentication
+        </span>
+
+      </div>
+
+
+      <div class="feature-item">
+
+        <span class="material-icons">
+          business
+        </span>
+
+        <span>
+          Multi Company Support
+        </span>
+
+      </div>
+
+
+      <div class="feature-item">
+
+        <span class="material-icons">
+          analytics
+        </span>
+
+        <span>
+          Smart ERP Management
+        </span>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="branding-footer">
+    © 2026 Payroll Management System
+  </div>
+
+</div>
+
+
+
+<!-- ========================================
+     RIGHT LOGIN PANEL
+========================================= -->
+
+<div class="login-panel">
+
+
+  <div class="login-card">
+
+
+    <!-- ========================================
+         LOGIN / WORKSPACE HEADER
+    ========================================= -->
+
+    <div class="login-header">
+
+
+      <!-- Mobile Logo -->
+
+      <div class="mobile-logo">
+
+        <span class="material-icons">
+          account_balance
+        </span>
+
+      </div>
+
+
+      <!-- Login Header -->
+
+      <ng-container *ngIf="!isAuthenticated">
+
+        <h2>Welcome Back</h2>
+
+        <p>
+          Please enter your credentials to continue
+        </p>
+
+      </ng-container>
+
+
+      <!-- Company Selection Header -->
+
+      <ng-container *ngIf="isAuthenticated">
+
+        <h2>Select Your Workspace</h2>
+
+        <p>
+          Select your company and financial year to continue
+        </p>
+
+      </ng-container>
+
+
+    </div>
+
+
+
+    <!-- ========================================
+         ERROR MESSAGES
+    ========================================= -->
+
+    <div
+      class="error-container"
+      *ngIf="errors.length > 0">
+
+
+      <div class="error-header">
+
+        <span class="material-icons">
+          error_outline
+        </span>
+
+        <span>
+          Please correct the following errors
+        </span>
+
+      </div>
+
+
+      <ul>
+
+        @for (error of errors; track error)
+        {
+          <li>
+            {{ error }}
+          </li>
+        }
+
+      </ul>
+
+
+    </div>
+
+
+
+    <!-- ========================================
+         LOGIN FORM
+    ========================================= -->
+
+    <div
+      class="login-form"
+      *ngIf="!isAuthenticated">
+
+
+      <!-- Username -->
+
+      <div class="form-group">
+
+        <label for="username">
+          Username
+        </label>
+
+
+        <div class="input-wrapper">
+
+          <span class="material-icons input-icon">
+            person_outline
+          </span>
+
+
+          <input
+            id="username"
+            type="text"
+            class="form-control custom-input"
+            [(ngModel)]="username"
+            placeholder="Enter your username"
+            autocomplete="username" />
+
+        </div>
+
+      </div>
+
+
+
+      <!-- Password -->
+
+      <div class="form-group">
+
+        <label for="password">
+          Password
+        </label>
+
+
+        <div class="input-wrapper">
+
+          <span class="material-icons input-icon">
+            lock_outline
+          </span>
+
+
+          <input
+            id="password"
+            type="password"
+            class="form-control custom-input"
+            [(ngModel)]="password"
+            placeholder="Enter your password"
+            autocomplete="current-password" />
+
+        </div>
+
+      </div>
+
+
+
+      <!-- Authenticate Button -->
+
+      <button
+        type="button"
+        class="btn-primary-action"
+        (click)="Authenticate()">
+
+
+        <span>
+          Authenticate
+        </span>
+
+
+        <span class="material-icons">
+          arrow_forward
+        </span>
+
+
+      </button>
+
+
+    </div>
+
+
+
+    <!-- ========================================
+         COMPANY / FINANCIAL YEAR SELECTION
+    ========================================= -->
+
+    <div
+      class="selection-form"
+      *ngIf="isAuthenticated">
+
+
+      <!-- Company Selection -->
+
+      <div class="form-group">
+
+
+        <label for="company">
+          Select Company
+        </label>
+
+
+        <div class="input-wrapper">
+
+
+          <span class="material-icons input-icon">
+            business
+          </span>
+
+
+          <select
+            id="company"
+            class="form-control custom-input custom-select"
+            [(ngModel)]="companyId" (change)="GetFinYears($event)">
+
+
+            <option value="0">
+              --- Select Company ---
+            </option>
+
+
+            @for (c of companies; track c.company_id)
+            {
+              <option [value]="c.company_id">
+
+                {{ c.comp_name }}
+
+              </option>
+            }
+
+
+          </select>
+
+
+        </div>
+
+
+      </div>
+
+
+
+      <!-- Financial Year Selection -->
+
+      <div class="form-group">
+
+
+        <label for="financialYear">
+          Select Financial Year
+        </label>
+
+
+        <div class="input-wrapper">
+
+
+          <span class="material-icons input-icon">
+            calendar_month
+          </span>
+
+
+          <select
+            id="financialYear"
+            class="form-control custom-input custom-select"
+            [(ngModel)]="finYearId">
+
+            <option value="0">
+              --- Select Financial Year ---
+            </option>
+
+            @for (y of years; track y.fin_year_id)
+            {
+              <option [value]="y.fin_year_id">
+
+                {{ y.from_date + ' - ' + y.to_date }}
+
+              </option>
+            }
+
+
+          </select>
+
+
+        </div>
+
+
+      </div>
+
+
+
+      <!-- Proceed Button -->
+
+      <button
+        type="button"
+        class="btn-primary-action"
+        (click)="ContinueToDashboard()">
+
+
+        <span>
+          Proceed to Dashboard
+        </span>
+
+
+        <span class="material-icons">
+          arrow_forward
+        </span>
+
+
+      </button>
+
+
+
+      <!-- Back Button -->
+
+      <button
+        type="button"
+        class="btn-back"
+        (click)="isAuthenticated = false">
+
+
+        <span class="material-icons">
+          arrow_back
+        </span>
+
+
+        <span>
+          Back to Login
+        </span>
+
+
+      </button>
+
+
+    </div>
+
+
+  </div>
+
+
+</div>
+
+
+  </div>
+
+</div>
+

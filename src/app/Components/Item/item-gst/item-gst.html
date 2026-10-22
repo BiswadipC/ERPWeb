@@ -1,0 +1,67 @@
+<div class="gst-section">
+  <div class="section-heading">
+    <div class="section-icon">03</div>
+    <div>
+      <h5 class="mb-1">GST Configurations</h5>
+      <p class="mb-0">Configure purchase and sales tax rates.</p>
+    </div>
+  </div>
+
+  <div [formGroup]="gstGroup">
+    <input type="hidden" formControlName="IdNo" />
+
+    <div class="tax-panel mb-3">
+      <div class="tax-panel-heading">
+        <span class="tax-dot purchase-dot"></span>
+        <h6 class="mb-0">Purchase Tax</h6>
+      </div>
+
+      <div class="row g-3">
+        <div class="col-md-4">
+          <label class="form-label" for="purCgst">Purchase CGST (%)</label>
+          <input id="purCgst" type="number" class="form-control"
+                 formControlName="PurCgst" (change)="CalcPurGst()"
+                 placeholder="0.00" />
+        </div>
+        <div class="col-md-4">
+          <label class="form-label" for="purSgst">Purchase SGST (%)</label>
+          <input id="purSgst" type="number" class="form-control"
+                 formControlName="PurSgst" (change)="CalcPurGst()"
+                 placeholder="0.00" />
+        </div>
+        <div class="col-md-4">
+          <label class="form-label" for="purIgst">Purchase IGST (%)</label>
+          <input id="purIgst" type="number" class="form-control calculated-field"
+                 formControlName="PurIgst" readonly />
+        </div>
+      </div>
+    </div>
+
+    <div class="tax-panel">
+      <div class="tax-panel-heading">
+        <span class="tax-dot sales-dot"></span>
+        <h6 class="mb-0">Sales Tax</h6>
+      </div>
+
+      <div class="row g-3">
+        <div class="col-md-4">
+          <label class="form-label" for="salCgst">Sales CGST (%)</label>
+          <input id="salCgst" type="number" class="form-control"
+                 formControlName="SalCgst" (change)="CalcSalGst()"
+                 placeholder="0.00" />
+        </div>
+        <div class="col-md-4">
+          <label class="form-label" for="salSgst">Sales SGST (%)</label>
+          <input id="salSgst" type="number" class="form-control"
+                 formControlName="SalSgst" (change)="CalcSalGst()"
+                 placeholder="0.00" />
+        </div>
+        <div class="col-md-4">
+          <label class="form-label" for="salIgst">Sales IGST (%)</label>
+          <input id="salIgst" type="number" class="form-control calculated-field"
+                 formControlName="SalIgst" readonly />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,98 @@
+<div class="container-fluid px-4 py-4">
+
+  <!-- Page Header -->
+  <div class="mb-4">
+    <h2 class="fw-bold mb-1">
+      {{ unitId == 0 ? 'Add New Unit' : 'Edit Unit' }}
+    </h2>
+
+    <p class="text-muted mb-0">
+      {{ unitId == 0
+          ? 'Create a new unit for the system'
+          : 'Update the details of the selected unit' }}
+    </p>
+  </div>
+
+
+  <!-- Form Card -->
+  <div class="card border-0 shadow-sm">
+
+    <!-- Card Header -->
+    <div class="card-header bg-white border-bottom py-3">
+      <h5 class="mb-0 fw-semibold">
+        Unit Information
+      </h5>
+    </div>
+
+
+    <!-- Form Body -->
+    <div class="card-body p-4">
+
+      <input type="hidden" [(ngModel)]="unitId" />
+
+      <div class="row">
+
+        <div class="col-md-6 col-lg-5">
+
+          <div class="mb-3">
+
+            <label for="unitName"
+                   class="form-label fw-semibold">
+              Unit Name
+              <span class="text-danger">*</span>
+            </label>
+
+            <input
+              id="unitName"
+              type="text"
+              class="form-control form-control-lg"
+              [(ngModel)]="unitname"
+              placeholder="Enter unit name"
+              autocomplete="off" />
+
+            <div class="form-text">
+              Enter the name of the unit, for example Kg, Piece, Box, etc.
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- Card Footer -->
+    <div class="card-footer bg-white border-top p-3">
+
+      <div class="d-flex justify-content-end gap-2">
+
+        <button
+          type="button"
+          class="btn btn-light border px-4"
+          (click)="Back()">
+
+          <i class="bi bi-arrow-left me-2"></i>
+          Back To List
+
+        </button>
+
+
+        <button
+          type="button"
+          class="btn btn-primary px-4"
+          (click)="Save()">
+
+          <i class="bi bi-check-lg me-2"></i>
+          Save
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

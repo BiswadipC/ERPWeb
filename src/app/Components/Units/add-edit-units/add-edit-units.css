@@ -1,0 +1,29 @@
+.card {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.form-label {
+  color: #343a40;
+}
+
+.form-control {
+  border-radius: 7px;
+}
+
+.form-control:focus {
+  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.12);
+}
+
+.form-control-lg {
+  font-size: 1rem;
+  padding: 0.65rem 0.85rem;
+}
+
+.btn {
+  border-radius: 7px;
+}
+
+.card-footer {
+  background-color: #ffffff;
+}

@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="row m-3">
+    <div class="col-12">
+      <h2 class="text-center"><b>List Of Purchase Orders</b></h2>
+    </div>
+  </div>
+  <div class="row m-3">
+    <div class="col-6">
+      <a [routerLink]="['/add-edit-po',0]" class="btn btn-info">Add New Order</a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>OrderId</th>
+            <th>Order No.</th>
+            <th>Order Date</th>
+            <th>Supplier</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (data of heads; track $index)
+          {
+            <tr>
+              <td>{{data.OrderId}}</td>
+              <td>{{data.OrderNo}}</td>
+              <td>{{data.OrderDate}}</td>
+              <td>{{data.PartyName}}</td>
+              <td><a [routerLink]="['/add-edit-po', data.OrderId]">Edit</a></td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,253 @@
+<div class="warehouse-page container-fluid py-4">
+
+  <!-- Page Header -->
+  <div class="page-header d-flex justify-content-between
+              align-items-center flex-wrap gap-3 mb-4">
+
+    <div class="d-flex align-items-center gap-3">
+      <div class="header-icon">
+        <i class="bi bi-building"></i>
+      </div>
+
+      <div>
+        <h2 class="page-title mb-1">Warehouse Details</h2>
+        <p class="page-subtitle mb-0">
+          Manage warehouse information and location details
+        </p>
+      </div>
+    </div>
+
+    <div class="page-breadcrumb">
+      <i class="bi bi-house-door me-2"></i>
+      <span>Warehouse Master</span>
+      <i class="bi bi-chevron-right mx-2"></i>
+      <span class="active-crumb">Add / Edit</span>
+    </div>
+
+  </div>
+
+  <!-- Main Form Card -->
+  <div class="card warehouse-card">
+
+    <div class="card-header-custom d-flex align-items-center gap-3">
+      <div class="section-icon">
+        <i class="bi bi-pencil-square"></i>
+      </div>
+
+      <div>
+        <h5 class="mb-1">Warehouse Information</h5>
+        <p class="mb-0">Enter the warehouse details below</p>
+      </div>
+    </div>
+
+    <div class="card-body-custom">
+
+      <!-- Validation Errors -->
+      <div class="alert alert-danger error-panel"
+           *ngIf="errors.length > 0">
+
+        <div class="d-flex align-items-center mb-2">
+          <i class="bi bi-exclamation-triangle-fill me-2"></i>
+          <strong>Please correct the following errors</strong>
+        </div>
+
+        <ul class="mb-0 ps-4">
+          @for (err of errors; track $index) {
+            <li>{{ err }}</li>
+          }
+        </ul>
+
+      </div>
+
+      <form [formGroup]="whGroup">
+
+        <input type="hidden" formControlName="WhId" />
+
+        <!-- Basic Information -->
+        <div class="form-section">
+
+          <div class="section-heading">
+            <i class="bi bi-info-circle"></i>
+            <span>Basic Information</span>
+          </div>
+
+          <div class="row g-4">
+
+            <div class="col-12 col-md-5">
+              <label class="form-label" for="whName">
+                Warehouse Name <span class="required">*</span>
+              </label>
+
+              <input
+                id="whName"
+                type="text"
+                class="form-control"
+                formControlName="WhName"
+                placeholder="Enter warehouse name"
+                autocomplete="organization" />
+
+              <small class="field-hint">
+                Provide a unique, recognizable name.
+              </small>
+            </div>
+
+            <div class="col-12 col-md-7">
+              <label class="form-label" for="whDescription">
+                Warehouse Description
+              </label>
+
+              <input
+                id="whDescription"
+                type="text"
+                class="form-control"
+                formControlName="WhDescription"
+                placeholder="Enter a short description" />
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Address Information -->
+        <div class="form-section">
+
+          <div class="section-heading">
+            <i class="bi bi-geo-alt"></i>
+            <span>Address Information</span>
+          </div>
+
+          <div class="row g-4">
+
+            <div class="col-12">
+              <label class="form-label" for="whAddress">
+                Street Address
+              </label>
+
+              <textarea
+                id="whAddress"
+                class="form-control"
+                rows="3"
+                formControlName="WhAddress"
+                placeholder="Enter street address, building, area, etc."
+                autocomplete="street-address"></textarea>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-3">
+              <label class="form-label" for="whCountry">
+                Country <span class="required">*</span>
+              </label>
+
+              <select
+                id="whCountry"
+                class="form-select"
+                formControlName="WhCountry"
+                (change)="GetStates($event)">
+
+                <option value="">Select country</option>
+
+                @for (item of countries; track item.Code) {
+                  <option [value]="item.Code">
+                    {{ item.Name }}
+                  </option>
+                }
+
+              </select>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-3">
+              <label class="form-label" for="whState">
+                State / Province <span class="required">*</span>
+              </label>
+
+              <select
+                id="whState"
+                class="form-select"
+                formControlName="WhState">
+
+                <option value="">Select state</option>
+
+                @for (item of states; track item.Code) {
+                  <option [value]="item.Code">
+                    {{ item.Name }}
+                  </option>
+                }
+
+              </select>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-3">
+              <label class="form-label" for="whCity">
+                City
+              </label>
+
+              <input
+                id="whCity"
+                type="text"
+                class="form-control"
+                formControlName="WhCity"
+                placeholder="Enter city"
+                autocomplete="address-level2" />
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-3">
+              <label class="form-label" for="whPin">
+                PIN / Postal Code
+              </label>
+
+              <input
+                id="whPin"
+                type="text"
+                class="form-control"
+                formControlName="WhPin"
+                placeholder="Enter postal code"
+                autocomplete="postal-code" />
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Form Actions -->
+        <div class="form-footer">
+
+          <div class="footer-note">
+            <i class="bi bi-shield-check me-2"></i>
+            Please verify the details before saving.
+          </div>
+
+          <div class="d-flex flex-wrap gap-3">
+
+            <button
+              type="button"
+              class="btn btn-light btn-back"
+              (click)="Back()">
+
+              <i class="bi bi-arrow-left me-2"></i>
+              Back to List
+            </button>
+
+            <button
+              type="button"
+              class="btn btn-primary btn-save"
+              (click)="Save()">
+
+              <i class="bi bi-check2-circle me-2"></i>
+              Save Warehouse
+            </button>
+
+          </div>
+
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+
+  <div class="page-footer-note text-center mt-4">
+    Warehouse Management
+    <span class="mx-2">•</span>
+    Master Data
+  </div>
+
+</div>

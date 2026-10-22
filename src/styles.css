@@ -1,1 +1,315 @@
+
+/* ========================================
+   Global ERP Form Theme
+   ======================================== */
+
+body {
+  background-color: #f4f7fb;
+  color: #263449;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.item-page {
+  max-width: 1500px;
+  color: #263449;
+}
+
+.page-header {
+  gap: 16px;
+}
+
+.page-title {
+  color: #172b4d;
+  font-size: 1.85rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.page-subtitle {
+  color: #778399;
+  font-size: 0.95rem;
+}
+
+.page-badge {
+  padding: 8px 14px;
+  background: #eaf1ff;
+  color: #315cbb;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+/* Main cards */
+
+.form-card {
+  padding: 26px;
+  background: #ffffff;
+  border: 1px solid #e7ecf3;
+  border-radius: 14px;
+  box-shadow: 0 4px 18px rgba(29, 52, 84, 0.045);
+  min-width: 0;
+}
+
+.section-heading {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-bottom: 25px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #edf0f5;
+}
+
+.section-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  background: #edf3ff;
+  color: #3563c9;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.section-heading h5 {
+  color: #1d304b;
+  font-size: 1.08rem;
+  font-weight: 700;
+}
+
+.section-heading p {
+  color: #8490a3;
+  font-size: 0.86rem;
+}
+
+/* Labels and controls */
+
+.form-label {
+  display: block;
+  margin-bottom: 8px;
+  color: #45536a;
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.form-control,
+.form-select {
+  min-height: 44px;
+  padding: 10px 13px;
+  border: 1px solid #dce3ed;
+  border-radius: 8px;
+  background-color: #ffffff;
+  color: #263449;
+  font-size: 0.92rem;
+  box-shadow: none;
+  transition: border-color 0.2s ease,
+              box-shadow 0.2s ease;
+}
+
+.form-control::placeholder {
+  color: #a4adbb;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #7197ed;
+  box-shadow: 0 0 0 3px rgba(65, 112, 220, 0.12);
+  outline: none;
+}
+
+.form-control[readonly],
+.calculated-field {
+  background-color: #f1f5fb;
+  color: #314d79;
+}
+
+/* Buttons */
+
+.btn {
+  min-height: 40px;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  transition: background-color 0.2s ease,
+              border-color 0.2s ease,
+              box-shadow 0.2s ease;
+}
+
+.btn-primary {
+  background-color: #315fce;
+  border-color: #315fce;
+}
+
+.btn-primary:hover {
+  background-color: #254db0;
+  border-color: #254db0;
+  box-shadow: 0 3px 9px rgba(49, 95, 206, 0.18);
+}
+
+.btn-light {
+  background: #f8fafc;
+  color: #48566c;
+}
+
+.btn-outline-primary {
+  border-color: #d1def9;
+  color: #315fce;
+}
+
+.btn-outline-primary:hover {
+  background: #edf3ff;
+  border-color: #b6c9f5;
+  color: #254db0;
+}
+
+/* Tables */
+
+.modern-table {
+  color: #34445c;
+  font-size: 0.9rem;
+  border-color: #e9edf3;
+}
+
+.modern-table thead th {
+  padding: 14px 16px;
+  background: #f5f7fb;
+  color: #65738a;
+  border-bottom: 1px solid #e4e9f1;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.45px;
+  white-space: nowrap;
+}
+
+.modern-table tbody td {
+  padding: 14px 16px;
+  vertical-align: middle;
+}
+
+.modern-table tbody tr:hover td {
+  background-color: #f8faff;
+}
+
+.modern-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.action-column {
+  width: 110px;
+}
+
+.empty-state {
+  padding: 30px 15px !important;
+  text-align: center;
+  color: #929db0;
+  font-size: 0.9rem;
+}
+
+/* GST sections */
+
+.tax-panel {
+  padding: 20px;
+  background: #fafbfd;
+  border: 1px solid #e9edf4;
+  border-radius: 10px;
+}
+
+.tax-panel-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.tax-panel-heading h6 {
+  color: #34445c;
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.tax-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+
+.purchase-dot {
+  background: #3c78d8;
+}
+
+.sales-dot {
+  background: #18a58b;
+}
+
+/* Opening stock */
+
+.stock-entry-panel {
+  padding: 20px;
+  background: #f8faff;
+  border: 1px solid #e6ecf7;
+  border-radius: 10px;
+}
+
+/* Validation errors */
+
+.error-panel {
+  border-radius: 10px;
+  font-size: 0.9rem;
+}
+
+.error-line {
+  margin-top: 4px;
+}
+
+/* Bottom actions */
+
+.form-footer {
+  padding: 20px 0 8px;
+}
+
+/* Child component compatibility */
+
+.child-card > app-item-gst,
+.child-card > app-item-op-stock {
+  display: block;
+}
+
+/* Responsive adjustments */
+
+@media (max-width: 767.98px) {
+  .item-page {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .page-title {
+    font-size: 1.5rem;
+  }
+
+  .form-card {
+    padding: 17px;
+    border-radius: 11px;
+  }
+
+  .section-heading {
+    margin-bottom: 20px;
+  }
+
+  .tax-panel,
+  .stock-entry-panel {
+    padding: 14px;
+  }
+
+  .modern-table thead th,
+  .modern-table tbody td {
+    padding: 11px 12px;
+  }
+
+  .form-footer .btn {
+    flex: 1;
+  }
+}
 /* You can add global styles to this file, and also import other style files */

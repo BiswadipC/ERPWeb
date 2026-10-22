@@ -1,0 +1,68 @@
+.container-fluid {
+  background-color: #f8f9fc;
+  min-height: 100vh;
+}
+
+.card {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.card-header {
+  background-color: #ffffff;
+}
+
+.table {
+  font-size: 0.95rem;
+}
+
+.table thead th {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  color: #6c757d;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.table tbody tr {
+  transition: all 0.2s ease;
+}
+
+.table tbody tr:hover {
+  background-color: #f8faff;
+}
+
+.table td {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border-color: #edf0f2;
+}
+
+.warehouse-icon {
+  width: 42px;
+  height: 42px;
+  background-color: #eaf2ff;
+  color: #0d6efd;
+  font-size: 18px;
+}
+
+.btn {
+  border-radius: 7px;
+}
+
+.btn-primary {
+  box-shadow: 0 2px 6px rgba(13, 110, 253, 0.2);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 4px 10px rgba(13, 110, 253, 0.3);
+}
+
+.badge {
+  font-weight: 500;
+}
+
+.table-responsive {
+  border-radius: 0 0 12px 12px;
+}

@@ -1,0 +1,217 @@
+
+<div class="container party-page">
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <div>
+      <h2 class="page-title">Add / Edit Party</h2>
+      <p class="page-subtitle">
+        Manage customer and supplier information
+      </p>
+    </div>
+    <div class="page-icon">
+      <i class="bi bi-person-vcard"></i>
+    </div>
+  </div>
+
+  <!-- Error Messages -->
+  <div class="alert alert-danger error-panel"
+       *ngIf="errors.length > 0">
+    <div class="error-heading">
+      <i class="bi bi-exclamation-circle-fill"></i>
+      Please correct the following errors
+    </div>
+    @for (err of errors; track err)
+    {
+      <div class="error-item">{{ err }}</div>
+    }
+  </div>
+
+  <form [formGroup]="partyGroup" (ngSubmit)="Save()">
+
+    <input type="hidden" formControlName="PartyCode" />
+
+    <!-- Basic Information -->
+    <div class="form-card">
+
+      <div class="section-heading">
+        <div class="section-icon">
+          <i class="bi bi-person-lines-fill"></i>
+        </div>
+        <div>
+          <h5>Basic Information</h5>
+          <p>Enter the party's name and classification.</p>
+        </div>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-md-8">
+          <label class="form-label">
+            Party Name <span class="required">*</span>
+          </label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="PartyName"
+            placeholder="Enter party name"
+          />
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label">
+            Party Type <span class="required">*</span>
+          </label>
+          <select class="form-select" formControlName="PartyType">
+            <option value="">Select party type</option>
+            <option value="Customer">Customer</option>
+            <option value="Supplier">Supplier</option>
+            <option value="Both">Both</option>
+          </select>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Address Information -->
+    <div class="form-card">
+
+      <div class="section-heading">
+        <div class="section-icon">
+          <i class="bi bi-geo-alt"></i>
+        </div>
+        <div>
+          <h5>Address Information</h5>
+          <p>Provide the party's location and mailing address.</p>
+        </div>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-12">
+          <label class="form-label">Street Address</label>
+          <textarea
+            class="form-control"
+            formControlName="Address1"
+            rows="3"
+            placeholder="House number, street, area, landmark..."
+          ></textarea>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+          <label class="form-label">Country</label>
+          <select
+            class="form-select"
+            formControlName="CountryCode"
+            (change)="selectState($event)"
+          >
+            <option value="">Select country</option>
+            @for (m of countries; track $index)
+            {
+              <option [value]="m.Code">{{ m.Name }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+          <label class="form-label">State</label>
+          <select class="form-select" formControlName="StateCode">
+            <option value="">Select state</option>
+            @for (item of states; track $index)
+            {
+              <option [value]="item.Code">{{ item.Name }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="col-lg-4 col-md-8">
+          <label class="form-label">City</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="City"
+            placeholder="Enter city"
+          />
+        </div>
+
+        <div class="col-lg-2 col-md-4">
+          <label class="form-label">PIN Code</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="Pin"
+            placeholder="PIN code"
+          />
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Contact Information -->
+    <div class="form-card">
+
+      <div class="section-heading">
+        <div class="section-icon">
+          <i class="bi bi-telephone"></i>
+        </div>
+        <div>
+          <h5>Contact Information</h5>
+          <p>Add phone, email, and website details.</p>
+        </div>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-lg-3 col-md-6">
+          <label class="form-label">Phone Number</label>
+          <input
+            type="tel"
+            class="form-control"
+            formControlName="Phone"
+            placeholder="Enter phone number"
+          />
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+          <label class="form-label">Email Address</label>
+          <input
+            type="email"
+            class="form-control"
+            formControlName="Email"
+            placeholder="name@example.com"
+          />
+        </div>
+
+        <div class="col-lg-5">
+          <label class="form-label">Website</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="Website"
+            placeholder="www.example.com"
+          />
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="form-actions">
+      <div class="action-note">
+        <i class="bi bi-info-circle"></i>
+        Review the information before saving.
+      </div>
+
+      <div class="action-buttons">
+        <button type="button" class="btn btn-back"
+                (click)="Back()">
+          <i class="bi bi-arrow-left"></i>
+          Back To List
+        </button>
+
+        <button type="submit" class="btn btn-save">
+          <i class="bi bi-check2-circle"></i>
+          Save Party
+        </button>
+      </div>
+    </div>
+
+  </form>
+</div>

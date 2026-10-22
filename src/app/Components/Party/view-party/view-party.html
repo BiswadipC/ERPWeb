@@ -1,0 +1,203 @@
+
+<div class="container party-master-page">
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="page-heading">
+      <div class="page-icon">
+        <i class="bi bi-people-fill"></i>
+      </div>
+      <div>
+        <h2>Party Master</h2>
+        <p>Manage your customers, suppliers and business contacts.</p>
+      </div>
+    </div>
+
+    <a [routerLink]="['/add-edit-party', 0]" class="btn btn-add">
+      <i class="bi bi-plus-lg"></i>
+      Add New Party
+    </a>
+  </div>
+
+  <!-- Table Card -->
+  <div class="party-table-card">
+
+    <!-- Table Toolbar -->
+    <div class="table-toolbar">
+      <div>
+        <h5>Party Directory</h5>
+        <p>View and manage your party records.</p>
+      </div>
+
+      <div class="table-search">
+        <i class="bi bi-search"></i>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Search parties..."
+          [value]="searchTerm"
+          (input)="onSearch($event)"
+          aria-label="Search parties"
+        />
+      </div>
+    </div>
+
+    <!-- Responsive Table -->
+    <div class="table-responsive">
+      <table class="table party-table">
+        <thead>
+          <tr>
+            <th class="code-column">Code</th>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Website</th>
+            <th class="text-center action-column">Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          @for (m of paginatedParties; track m.PartyCode) {
+            <tr>
+              <td>
+                <span class="party-code">{{ m.PartyCode }}</span>
+              </td>
+
+              <td>
+                <div class="party-name">
+                  <span class="party-avatar">
+                    {{ m.PartyName.charAt(0).toUpperCase() || '?' }}
+                  </span>
+                  <span>{{ m.PartyName }}</span>
+                </div>
+              </td>
+
+              <td>
+                <span class="contact-text">
+                  <i class="bi bi-telephone"></i>
+                  {{ m.Phone || '—' }}
+                </span>
+              </td>
+
+              <td>
+                <span class="email-text">
+                  {{ m.Email || '—' }}
+                </span>
+              </td>
+
+              <td>
+                @if (m.Website) {
+                  <a
+                    class="website-link"
+                    [href]="(m.Website.startsWith('http://') ||
+                             m.Website.startsWith('https://'))
+                             ? m.Website : 'https://' + m.Website"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {{ m.Website }}
+                    <i class="bi bi-box-arrow-up-right"></i>
+                  </a>
+                } @else {
+                  <span class="muted-text">—</span>
+                }
+              </td>
+
+              <td class="text-center">
+                <a
+                  [routerLink]="['/add-edit-party', m.PartyCode]"
+                  class="btn btn-edit"
+                  title="Edit party"
+                  [attr.aria-label]="'Edit ' + m.PartyName"
+                >
+                  <i class="bi bi-pencil-square"></i>
+                  Edit
+                </a>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="6">
+                <div class="empty-state">
+                  <i class="bi bi-inbox"></i>
+                  <h5>No parties found</h5>
+                  <p>
+                    @if (searchTerm) {
+                      Try a different search term.
+                    } @else {
+                      Add a new party to get started.
+                    }
+                  </p>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Pagination Footer -->
+    <div class="pagination-footer">
+      <div class="pagination-info">
+        Showing
+        <strong>{{ filteredParties.length === 0 ? 0 :
+          (currentPage - 1) * pageSize + 1 }}</strong>
+        to
+        <strong>{{ endItem }}</strong>
+        of
+        <strong>{{ filteredParties.length }}</strong>
+        entries
+      </div>
+
+      <div class="pagination-controls">
+
+        <label for="pageSize" class="page-size-label">Rows:</label>
+        <select
+          id="pageSize"
+          class="form-select page-size-select"
+          [value]="pageSize"
+          (change)="changePageSize($event)"
+        >
+          <option value="10">10</option>
+          <option value="25">25</option>
+          <option value="50">50</option>
+        </select>
+
+        <button
+          type="button"
+          class="page-btn page-arrow"
+          (click)="goToPage(currentPage - 1)"
+          [disabled]="currentPage === 1"
+          aria-label="Previous page"
+        >
+          <i class="bi bi-chevron-left"></i>
+        </button>
+
+        @for (page of pageNumbers; track page) {
+          <button
+            type="button"
+            class="page-btn"
+            [class.active]="currentPage === page"
+            [attr.aria-current]="currentPage === page ? 'page' : null"
+            (click)="goToPage(page)"
+          >
+            {{ page }}
+          </button>
+        }
+
+        <button
+          type="button"
+          class="page-btn page-arrow"
+          (click)="goToPage(currentPage + 1)"
+          [disabled]="currentPage === totalPages ||
+                     filteredParties.length === 0"
+          aria-label="Next page"
+        >
+          <i class="bi bi-chevron-right"></i>
+        </button>
+
+      </div>
+    </div>
+
+  </div>
+</div>

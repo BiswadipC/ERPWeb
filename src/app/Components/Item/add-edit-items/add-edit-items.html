@@ -1,0 +1,182 @@
+
+<div class="item-page container-fluid py-4">
+  <!-- Page Header -->
+  <div class="page-header d-flex flex-wrap justify-content-between align-items-center mb-4">
+    <div>
+      <h2 class="page-title mb-1">Item Master</h2>
+      <p class="page-subtitle mb-0">Manage item information, attributes, tax and opening stock.</p>
+    </div>
+    <span class="page-badge">Inventory Management</span>
+  </div>
+
+  <!-- Validation Errors -->
+  <div class="alert alert-danger error-panel mb-4"
+       *ngIf="errors.length > 0">
+    <div class="fw-bold mb-2">Please correct the following errors</div>
+    @for (data of errors; track $index) {
+      <div class="error-line">{{ data }}</div>
+    }
+  </div>
+
+  <form [formGroup]="headGroup">
+    <input type="hidden" formControlName="ItemId" />
+
+    <!-- Basic Information -->
+    <section class="form-card mb-4">
+      <div class="section-heading">
+        <div class="section-icon">01</div>
+        <div>
+          <h5 class="mb-1">Basic Information</h5>
+          <p class="mb-0">Enter the item's primary details.</p>
+        </div>
+      </div>
+
+      <div class="row g-3">
+        <div class="col-12">
+          <label class="form-label" for="itemName">Item Name</label>
+          <input id="itemName" type="text" class="form-control"
+                 formControlName="ItemName"
+                 placeholder="Enter item name" />
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label" for="unitId">Unit Name</label>
+          <select id="unitId" class="form-select" formControlName="UnitId">
+            <option value="0">Select unit</option>
+            @for (item of units; track item.IdNo) {
+              <option value="{{item.IdNo}}">{{item.Name}}</option>
+            }
+          </select>
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label" for="mrp">MRP</label>
+          <input id="mrp" type="number" class="form-control"
+                 formControlName="MRP" placeholder="Enter MRP" />
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label" for="reorderLevel">Re-order Level</label>
+          <input id="reorderLevel" type="number" class="form-control"
+                 formControlName="ReorderLevel" placeholder="Enter quantity" />
+        </div>
+      </div>
+    </section>
+
+    <!-- Item Attributes -->
+    <section class="form-card mb-4">
+      <div class="section-heading">
+        <div class="section-icon">02</div>
+        <div>
+          <h5 class="mb-1">Item Attributes</h5>
+          <p class="mb-0">Configure the item's characteristics and values.</p>
+        </div>
+      </div>
+
+      <div [formGroup]="dtlGroup">
+        <input type="hidden" formControlName="RecId" />
+        <input type="hidden" formControlName="DtlId" />
+
+        <div class="row g-3 align-items-end">
+          <div class="col-md-4">
+            <label class="form-label" for="attrHead">Attribute Name</label>
+            <select id="attrHead" class="form-select"
+                    formControlName="AttrHeadId"
+                    (change)="onAttrHeadChange($event)">
+              <option value="0">Select attribute</option>
+              @for (attr of attrHeads; track $index) {
+                <option value="{{attr.IdNo}}">{{attr.Name}}</option>
+              }
+            </select>
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label" for="attrDtl">Attribute Value</label>
+            <select id="attrDtl" class="form-select"
+                    formControlName="AttrDtlId">
+              <option value="0">Select value</option>
+              @for (attr of attrDtls; track $index) {
+                <option value="{{attr.IdNo}}">{{attr.AttrValue}}</option>
+              }
+            </select>
+          </div>
+
+          <div class="col-md-4 d-flex gap-2">
+            <button type="button" class="btn btn-primary flex-fill"
+                    (click)="Add()">
+              <span class="me-1">+</span> Add Attribute
+            </button>
+            <button type="button" class="btn btn-light border"
+                    (click)="Clear()">
+              Reset
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="table-responsive mt-4">
+        <table class="table modern-table align-middle mb-0">
+          <thead>
+            <tr>
+              <th class="d-none">Record ID</th>
+              <th class="d-none">Detail ID</th>
+              <th class="d-none">Attribute ID</th>
+              <th>Attribute Name</th>
+              <th class="d-none">Value ID</th>
+              <th>Attribute Value</th>
+              <th class="text-center action-column">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let d of GetDetails.controls; let i=index">
+              <td class="d-none">{{i}}</td>
+              <td class="d-none">{{d.get('DtlId')?.value}}</td>
+              <td class="d-none">{{d.get('AttrHeadId')?.value}}</td>
+              <td class="fw-medium">{{d.get('AttrName')?.value}}</td>
+              <td class="d-none">{{d.get('AttrDtlId')?.value}}</td>
+              <td>{{d.get('AttrValue')?.value}}</td>
+              <td class="text-center">
+                <button type="button" class="btn btn-sm btn-outline-primary"
+                        (click)="Edit(i, d)">
+                  Edit
+                </button>
+              </td>
+            </tr>
+            <tr *ngIf="GetDetails.controls.length === 0">
+              <td colspan="3" class="empty-state">
+                No attributes added yet.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- GST Child Component -->
+    <section class="form-card mb-4 child-card">
+      <app-item-gst
+        [GstInput]="gstGroup"
+        (WhEvent)="GetGst($event)">
+      </app-item-gst>
+    </section>
+
+    <!-- Opening Stock Child Component -->
+    <section class="form-card mb-4 child-card">
+      <app-item-op-stock
+        [OpStockInput]="OpStockArray"
+        (OpStockEmitter)="GetOpStock($event)">
+      </app-item-op-stock>
+    </section>
+
+    <!-- Footer Actions -->
+    <div class="form-footer d-flex flex-wrap justify-content-end gap-2">
+      <button type="button" class="btn btn-light border px-4" (click)="Back()">
+        Back To List
+      </button>
+      <button type="button" class="btn btn-primary px-5"
+              (click)="Save()">
+        Save Item
+      </button>
+    </div>
+  </form>
+</div>

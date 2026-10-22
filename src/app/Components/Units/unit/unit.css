@@ -1,0 +1,43 @@
+.card {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.card-header,
+.card-footer {
+  background-color: #ffffff;
+}
+
+.table thead th {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #6c757d;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.table tbody tr {
+  height: 58px;
+}
+
+.table tbody td {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.btn {
+  border-radius: 7px;
+}
+
+.input-group-text {
+  color: #6c757d;
+}
+
+.form-control:focus {
+  box-shadow: none;
+  border-color: #86b7fe;
+}
